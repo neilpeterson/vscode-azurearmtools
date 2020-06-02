@@ -16,8 +16,9 @@ import * as path from 'path';
 import { commands, Diagnostic, Selection, Uri, window, workspace } from "vscode";
 import { DeploymentTemplate, ext, getVSCodePositionFromPosition } from '../../extension.bundle';
 import { delay } from '../support/delay';
-import { getDiagnosticsForDocument, sources, testFolder } from '../support/diagnostics';
+import { getDiagnosticsForDocument, sources } from '../support/diagnostics';
 import { getTempFilePath } from "../support/getTempFilePath";
+import { resolveInTestFolder } from '../support/resolveInTestFolder';
 import { testWithLanguageServer } from '../support/testWithLanguageServer';
 
 const EOL = ext.EOL;
@@ -370,7 +371,7 @@ suite("Snippets functional tests", () => {
 
     function createSnippetTests(snippetsFile: string): void {
         suite(snippetsFile, () => {
-            const snippetsPath = path.join(testFolder, '..', 'assets', snippetsFile);
+            const snippetsPath = resolveInTestFolder(path.join('..', 'assets', snippetsFile));
             const snippets = <{ [name: string]: ISnippet }>fse.readJsonSync(snippetsPath);
             // tslint:disable-next-line:no-for-in forin
             for (let snippetName in snippets) {
