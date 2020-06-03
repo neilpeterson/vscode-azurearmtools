@@ -57,13 +57,6 @@ let emptyTemplate: string = `
 
 // Snippets marked with true will have their test skipped
 const overrideSkipTests: { [name: string]: boolean } = {
-    "Azure Resource Manager (ARM) Template": true, // TODO: Blocked by https://dev.azure.com/devdiv/DevDiv/_boards/board/t/ARM%20Template%20Authoring/Stories/?workitem=1005573
-    "Azure Resource Manager (ARM) Template Subscription": true, // TODO: Blocked by https://dev.azure.com/devdiv/DevDiv/_boards/board/t/ARM%20Template%20Authoring/Stories/?workitem=1005573
-    "Azure Resource Manager (ARM) Template Management Group": true, // TODO: Blocked by https://dev.azure.com/devdiv/DevDiv/_boards/board/t/ARM%20Template%20Authoring/Stories/?workitem=1005573
-    "Azure Resource Manager (ARM) Template Tenant": true, // TODO: Blocked by https://dev.azure.com/devdiv/DevDiv/_boards/board/t/ARM%20Template%20Authoring/Stories/?workitem=1005573
-
-    "Azure Resource Manager (ARM) Parameters Template": true, // TODO: Blocked by https://dev.azure.com/devdiv/DevDiv/_boards/board/t/ARM%20Template%20Authoring/Stories/?workitem=1005573
-
     "Tag Section": true // Needs comma for no errors, and not complicated, just ignore
 };
 
@@ -445,7 +438,7 @@ suite("Snippets functional tests", () => {
         // Make sure formatting of the sippet is correct by formatting the document and seeing if it changes
         await commands.executeCommand('editor.action.formatDocument');
         const docTextAfterFormatting = window.activeTextEditor!.document.getText();
-        assert.deepStrictEqual(docTextAfterInsertion, docTextAfterFormatting, "Snippet is incorrectly formatted. Make sure to use \\t instead of spaces, and make sure the tabbing/indentations are correctly structured");
+        assert.deepStrictEqual(docTextAfterInsertion, docTextAfterFormatting, "Snippet is incorrectly formatted (the inserted text shouldn't have changed when the document was formatted). Make sure to use \\t instead of spaces, and make sure the tabbing/indentations are correctly structured");
 
         // // NOTE: Even though we request the editor to be closed,
         // // there's no way to request the document actually be closed,
